@@ -82,9 +82,8 @@ def get_pie_chart(select_site):
               [Input(component_id='site-dropdown', component_property='value'), Input(component_id="payload-slider", component_property="value")]
              )
 
-def get_payload_scatter(select_site, paylaod_mass):
+def get_payload_scatter(select_site, payload):
     if select_site == 'ALL':
-       # data_dfs = spacex_df.groupby('Launch Site')['class', 'Booster Version', 'Payload Mass (kg)'].reset_index()
         data_dfs = spacex_df[spacex_df['Payload Mass (kg)'].between(payload[0],payload[1])] 
         figs = px.scatter(data_dfs,
                           x='Payload Mass (kg)',
@@ -94,7 +93,6 @@ def get_payload_scatter(select_site, paylaod_mass):
         return figs
     else:
         data_dfs = spacex_df[spacex_df['Launch Site']==select_site]
-        #data_dfs = data_dfs.groupby('Launch Site')['class', 'Payload Mass (kg)'].reset_index()
         figs = px.scatter(data_dfs,
                           x='Payload Mass (kg)',
                           y='class',
